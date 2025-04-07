@@ -1,33 +1,46 @@
-# load_data.py
+# src/ingestion/load_data.py
+
 import pandas as pd
 import os
 
 def load_raw_data(file_path: str) -> pd.DataFrame:
     """
-    Carga los datos en formato CSV desde la ubicación especificada.
+    Función para cargar datos brutos desde un archivo CSV.
 
-    Parameters:
-    file_path (str): Ruta del archivo CSV a cargar.
+    Args:
+        file_path (str): Ruta completa hacia el archivo CSV.
 
     Returns:
-    pd.DataFrame: DataFrame con los datos cargados.
+        pd.DataFrame: DataFrame con los datos cargados.
     """
-    # Verifica que el archivo exista en la ruta proporcionada
+    # Validamos que la ruta del archivo exista
     if not os.path.exists(file_path):
-        raise FileNotFoundError(f"El archivo {file_path} no existe. Verifica la ruta.")
+        raise FileNotFoundError(f"El archivo no se encuentra en: {file_path}")
 
-    # Cargar datos con Pandas
-    df = pd.read_csv(file_path)
+    # Leemos el archivo CSV usando pandas
+    df = pd.read_csv(file_path, parse_dates=['fecha'])
 
-    # Mostrar información básica para validar la carga correcta
-    print(f"✅ Datos cargados correctamente desde {file_path}.")
-    print(f"Número de filas y columnas: {df.shape}")
-    print("Primeras 5 filas:")
+    # Validamos las columnas mínimas necesarias
+    expected_columns = {'fecha', 'ventas'}
+    if not expected_columns.issubset(df.columns):
+        missing_cols = expected_columns - set(df.columns)
+        raise ValueError(f"Faltan columnas necesarias en el archivo CSV: {missing_cols}")
+
+    # Ordenamos los datos por fecha
+    df = df.sort_values(by='fecha').reset_index(drop=True)
+
+    print(f"✅ Datos cargados exitosamente desde {file_path}")
+    print(f"Total de registros cargados: {len(df)}")
+    print("Vista previa de los datos:")
     print(df.head())
 
     return df
 
-# Ejemplo de ejecución local (para prueba rápida)
+# Ejecución independiente para prueba rápida
 if __name__ == "__main__":
-    ruta_csv = "data/raw/datos_ventas.csv"  # Ajustar según tu ubicación exacta
-    df = load_raw_data(ruta_csv)
+    # Ruta relativa desde la ubicación actual del script hacia los datos
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    csv_path = os.path.join(base_dir, '..', '..', 'data', 'raw', 'datos_ventas.csv')
+
+    # Cargamos los datos
+    df_ventas = load_raw_data(csv_path)
