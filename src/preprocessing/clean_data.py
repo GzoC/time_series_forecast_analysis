@@ -60,3 +60,18 @@ if __name__ == "__main__":
     # Ubicación relativa del archivo CSV de datos en bruto
     base_dir = os.path.dirname(os.path.abspath(__file__))
     csv_raw_path = os.path.join(base_dir, '..', '..', 'data', 'raw', 'datos_ventas.csv')
+
+    # Cargar datos usando función del módulo de ingestión
+    from src.ingestion.load_data import load_raw_data
+    df_raw = load_raw_data(csv_raw_path)
+
+    # Limpieza de datos
+    df_clean = clean_sales_data(df_raw)
+
+    # Guardar datos limpios para futuras etapas del pipeline
+    processed_dir = os.path.join(base_dir, '..', '..', 'data', 'processed')
+    os.makedirs(processed_dir, exist_ok=True)  # Crear carpeta si no existe
+    csv_clean_path = os.path.join(processed_dir, 'datos_ventas_limpios.csv')
+
+    df_clean.to_csv(csv_clean_path, index=False)
+    print(f"✅ Datos limpios guardados en {csv_clean_path}")
