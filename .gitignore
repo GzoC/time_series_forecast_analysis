@@ -1,0 +1,4 @@
+﻿.venv_forecasting/
+__pycache__/
+data/processed/
+.env
