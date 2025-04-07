@@ -21,8 +21,9 @@ def load_raw_data(file_path: str) -> pd.DataFrame:
     df = pd.read_csv(file_path, parse_dates=['fecha'])
 
     # Validamos las columnas mínimas necesarias
-    expected_columns = {'fecha', 'ventas'}
-    if not expected_columns.issubset(df.columns):
+    expected_columns = {'fecha', 'ventas'} # Definimos las columnas esperadas
+    if not expected_columns.issubset(df.columns):   # Verificamos si faltan columnas
+        # Si faltan columnas, generamos un error con los nombres de las columnas faltantes
         missing_cols = expected_columns - set(df.columns)
         raise ValueError(f"Faltan columnas necesarias en el archivo CSV: {missing_cols}")
 

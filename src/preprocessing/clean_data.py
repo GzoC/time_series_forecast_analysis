@@ -1,44 +1,62 @@
-# clean_data.py
+# src/preprocessing/clean_data.py
+
 import pandas as pd
+import numpy as np
 
-def clean_and_transform_data(df: pd.DataFrame) -> pd.DataFrame:
+def clean_sales_data(df: pd.DataFrame) -> pd.DataFrame:
     """
-    Limpia y transforma los datos del DataFrame original.
+    Limpia y prepara los datos de ventas para análisis y modelado.
 
-    Parameters:
-    df (pd.DataFrame): DataFrame con datos crudos.
+    Args:
+        df (pd.DataFrame): DataFrame con datos brutos ('fecha', 'ventas').
 
     Returns:
-    pd.DataFrame: DataFrame limpio y transformado.
+        pd.DataFrame: DataFrame limpio y transformado.
     """
-    # Transformar columna de fecha a datetime
-    df['fecha'] = pd.to_datetime(df['fecha'], format='%Y-%m-%d', errors='coerce')
 
-    # Validar conversión correcta
-    if df['fecha'].isnull().any():
-        raise ValueError("Se encontraron fechas no válidas tras la conversión.")
+    # --- Manejo de valores nulos ---
+    if df['ventas'].isnull().sum() > 0:
+        # Interpolación lineal para rellenar valores nulos
+        df['ventas'] = df['ventas'].interpolate(method='linear')
+        print("⚠️ Se encontraron valores nulos. Se realizó interpolación lineal para rellenarlos.")
+    else:
+        print("✅ No se encontraron valores nulos.")
 
-    # Ordenar por fecha
-    df.sort_values('fecha', inplace=True)
+    # --- Detección de outliers mediante método IQR ---
+    Q1 = df['ventas'].quantile(0.25)  # Primer cuartil
+    Q3 = df['ventas'].quantile(0.75)  # Tercer cuartil
+    IQR = Q3 - Q1  # Rango Intercuartílico
+    lower_bound = Q1 - 1.5 * IQR
+    upper_bound = Q3 + 1.5 * IQR
 
-    # Manejar valores faltantes (si existieran)
-    if df['ventas'].isnull().any():
-        # Aquí optamos por rellenar con la media, pero puedes cambiar la estrategia
-        df['ventas'].fillna(df['ventas'].mean(), inplace=True)
-        print("⚠️ Se detectaron valores nulos en 'ventas'. Se rellenaron con la media.")
+    # Identificación de outliers
+    outliers = df[(df['ventas'] < lower_bound) | (df['ventas'] > upper_bound)]
+    num_outliers = len(outliers)
 
-    # Restablecer índices tras ordenar
-    df.reset_index(drop=True, inplace=True)
+    if num_outliers > 0:
+        print(f"⚠️ Se detectaron {num_outliers} valores atípicos. Aplicando corrección mediante interpolación.")
+        # Reemplazo de outliers con NaN temporalmente
+        df.loc[(df['ventas'] < lower_bound) | (df['ventas'] > upper_bound), 'ventas'] = np.nan
+        # Interpolamos nuevamente para corregir estos valores
+        df['ventas'] = df['ventas'].interpolate(method='linear')
+    else:
+        print("✅ No se detectaron valores atípicos.")
 
-    print("✅ Datos limpios y transformados correctamente.")
-    print(f"Rango de fechas desde {df['fecha'].min()} hasta {df['fecha'].max()}")
+    # --- Validar y ordenar fechas ---
+    # Aseguramos que la columna 'fecha' sea tipo datetime (fecha)
+    df['fecha'] = pd.to_datetime(df['fecha'])
 
+    # Ordenamos cronológicamente
+    df = df.sort_values(by='fecha').reset_index(drop=True)
+    print("✅ Fechas validadas y ordenadas cronológicamente.")
+
+    # Retornamos el DataFrame limpio
     return df
 
-# Ejemplo de ejecución local (para prueba rápida)
+# Ejecución independiente para prueba rápida
 if __name__ == "__main__":
-    from src.ingestion.load_data import load_raw_data
+    import os
 
-    ruta_csv = "data/raw/datos_ventas.csv"
-    df_raw = load_raw_data(ruta_csv)
-    df_clean = clean_and_transform_data(df_raw)
+    # Ubicación relativa del archivo CSV de datos en bruto
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    csv_raw_path = os.path.join(base_dir, '..', '..', 'data', 'raw', 'datos_ventas.csv')
