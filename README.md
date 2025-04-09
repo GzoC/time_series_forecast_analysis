@@ -21,7 +21,7 @@ analisis-pronostico-series-temporales/
 │   │   └── clean_data.py
 │   ├── modeling/
 │   │   ├── arima_model.py
-│   │   ├── prophet_model.py (pendiente)
+│   │   ├── prophet_model.py
 │   │   └── model_evaluation.py (pendiente)
 │   ├── visualization/
 │   │   └── dashboard.py (pendiente)
