@@ -1,9 +1,9 @@
 # src/visualization/dashboard.py
 
-import streamlit as st
-import pandas as pd
-import os
-import matplotlib.pyplot as plt
+import streamlit as st #streamlit==1.24.0
+import pandas as pd #pandas==2.0.3
+import os 
+import matplotlib.pyplot as plt #matplotlib==3.7.1
 
 # --- Configuración inicial de la app ---
 st.set_page_config(page_title="Forecast Dashboard", layout="centered")
