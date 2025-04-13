@@ -1,8 +1,12 @@
 # tests/test_ingestion.py
 
+import sys
 import os
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 import pandas as pd
 from src.ingestion.load_data import load_raw_data
+
 
 def test_load_raw_data():
     base_dir = os.path.dirname(os.path.abspath(__file__))

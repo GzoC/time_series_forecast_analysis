@@ -1,6 +1,9 @@
 # tests/test_preprocessing.py
 
+import sys
 import os
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 from src.ingestion.load_data import load_raw_data
 from src.preprocessing.clean_data import clean_sales_data
 

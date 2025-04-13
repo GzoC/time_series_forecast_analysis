@@ -1,6 +1,9 @@
 # tests/test_modeling.py
 
+import sys
 import os
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 from src.ingestion.load_data import load_raw_data
 from src.preprocessing.clean_data import clean_sales_data
 from src.modeling.arima_model import train_test_split, select_arima_order, train_arima
