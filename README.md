@@ -22,24 +22,24 @@ analisis-pronostico-series-temporales/
 │   ├── modeling/
 │   │   ├── arima_model.py
 │   │   ├── prophet_model.py
-│   │   └── model_evaluation.py (pendiente)
+│   │   └── model_evaluation.py
 │   ├── visualization/
-│   │   └── dashboard.py (pendiente)
+│   │   └── dashboard.py
 │   └── utils/
-│       └── utils.py (pendiente)
+│       └── utils.py
 ├── tests/
-│   ├── test_ingestion.py (pendiente)
-│   ├── test_preprocessing.py (pendiente)
-│   └── test_modeling.py (pendiente)
-├── Dockerfile (pendiente)
-├── docker-compose.yml (pendiente)
+│   ├── test_ingestion.py
+│   ├── test_preprocessing.py
+│   └── test_modeling.py
+├── Dockerfile
+├── docker-compose.yml
 ├── requirements.txt
-├── setup.py (opcional)
+├── setup.py
 ├── .gitignore
 ├── README.md
 └── .github/
     └── workflows/
-        └── ci.yml (pendiente)
+        └── ci.yml
 ```
 
 ## 🚀 Instalación
