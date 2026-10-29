@@ -8,7 +8,13 @@ import streamlit as st
 
 
 def chart(frame, with_actual=True):
-    base = alt.Chart(frame).encode(x=alt.X("date:T", title="Fecha"))
+    base = alt.Chart(frame).encode(
+        x=alt.X(
+            "date:T",
+            title="Fecha",
+            axis=alt.Axis(format="%d/%m", tickCount={"interval": "day", "step": 1}),
+        )
+    )
     band = base.mark_area(opacity=0.18, color="#127c78").encode(
         y=alt.Y("lower:Q", title="Energía diaria (kWh)"), y2="upper:Q"
     )
@@ -51,18 +57,26 @@ def render():
     with planning:
         a, b, c = st.columns(3)
         a.metric("Energía prevista · 7 días", f"{future.predicted.sum():,.0f} kWh")
-        b.metric("Modelo seleccionado", report["selected"])
+        b.metric(
+            "Modelo seleccionado",
+            {
+                "weekday_mean": "Media por día",
+                "seasonal_naive": "Semana anterior",
+                "sarima": "SARIMA",
+                "prophet": "Prophet",
+            }[report["selected"]],
+        )
         c.metric("MAE en prueba", f"{report['test'][report['selected']]['mae_kwh']:,.0f} kWh/día")
         chart(future, False)
         st.caption(
-            "Verde: pronóstico. Banda: errores históricos de calibración, nominal90%. No garantiza cobertura futura ni cobertura simultánea de toda la semana."
+            "Verde: pronóstico. Banda: errores históricos de calibración, nominal 90%. No garantiza cobertura futura ni cobertura simultánea de toda la semana."
         )
         budget = st.number_input(
             "Presupuesto diario de energía (kWh)", min_value=0.0, value=4000.0, step=250.0
         )
         risk = future[future.upper > budget]
         st.write(
-            f"{len(risk)} de7 días tienen un límite superior mayor que el presupuesto indicado."
+            f"{len(risk)} de 7 días tienen un límite superior mayor que el presupuesto indicado."
         )
         st.caption(
             "Úsalo como señal para revisar programación de producción y disponibilidad energética. No estima potencia máxima, tarifa, ahorro ni una orden automática de operación."
@@ -102,7 +116,17 @@ def render():
                 st.dataframe(pd.DataFrame(report["warnings"]), hide_index=True)
     with source:
         st.subheader("Consumo agregado por fecha declarada")
-        st.line_chart(daily.set_index("date")["kwh"], y_label="kWh/día", height=250)
+        st.altair_chart(
+            alt.Chart(daily)
+            .mark_line(color="#127c78")
+            .encode(
+                x=alt.X("date:T", title="Fecha"),
+                y=alt.Y("kwh:Q", title="kWh/día"),
+                tooltip=["date:T", alt.Tooltip("kwh:Q", format=".0f")],
+            )
+            .properties(height=250),
+            width="stretch",
+        )
         st.write(
             "35.040 registros originales, 96 por día. Solo fecha y Usage_kWh entran al estudio: no se usan mediciones eléctricas contemporáneas ni Load_Type como predictores futuros."
         )
@@ -113,7 +137,7 @@ def render():
             "Se conservan picos y ceros. No se imputan faltantes, no se aprende limpieza sobre el futuro ni se recortan valores atípicos antes de dividir."
         )
         st.markdown(
-            "[Fuente UCI y licencia CC BY4.0](https://archive.ics.uci.edu/dataset/851/steel+industry+energy+consumption) · DOI10.24432/C52G8C · V E, Shin y Cho (2021)."
+            "[Fuente UCI y licencia CC BY 4.0](https://archive.ics.uci.edu/dataset/851/steel+industry+energy+consumption) · DOI 10.24432/C52G8C · V E, Shin y Cho (2021)."
         )
 
 

@@ -4,11 +4,13 @@
 
 Python · pandas · SARIMA · Prophet · Streamlit · evaluación temporal
 
-El estudio utiliza consumo real publicado por UCI: 35.040 mediciones de una acería en Corea del Sur, agregadas por fecha a 365 días de2018. La demo es una reconstrucción histórica, no un pronóstico actual conectado a una planta.
+El estudio utiliza consumo real publicado por UCI: 35.040 mediciones de una acería en Corea del Sur, agregadas por fecha a 365 días de 2018. La demo es una reconstrucción histórica, no un pronóstico actual conectado a una planta.
+
+![Plan semanal de energía y banda de incertidumbre](docs/images/forecast-desktop.png)
 
 ## Ejecutar
 
-Con Python3.11–3.14 y uv:
+Con Python 3.11–3.14 y uv:
 
 ```bash
 git clone https://github.com/GzoC/time_series_forecast_analysis.git
@@ -41,14 +43,14 @@ uv run --no-sync ruff format --check src tests
 uv build
 ```
 
-La CI ejecuta pruebas, evaluación completa y el wheel fuera del checkout en Python3.11/3.13. Su tarea de contenedor construye la imagen, genera informes y comprueba salud HTTP. Esto no reemplaza la revisión visual de la aplicación.
+La CI ejecuta pruebas, evaluación completa y el wheel fuera del checkout en Python 3.11/3.13. Su tarea de contenedor construye la imagen, genera informes y comprueba salud HTTP. Esto no reemplaza la revisión visual de la aplicación.
 
 ```bash
 docker compose up --build
 ```
 
-[Estado de implementación y evidencia pendiente](docs/IMPLEMENTATION_STATUS.md). Historial original conservado en Git; el experimento de ventas de origen no documentado permanece en el commit266ada82b7fd25bce524667ca801a2d44290910c.
+[Estado de implementación y evidencia](docs/IMPLEMENTATION_STATUS.md). Historial original conservado en Git; el experimento de ventas de origen no documentado permanece en el commit 266ada82b7fd25bce524667ca801a2d44290910c.
 
 English: Reproducible daily industrial energy forecasting with chronological model selection, seasonal baselines, calibrated error bands and an explicit historical planning scenario.
 
-Autor: [GzoC](https://github.com/GzoC). Código MIT. Fuente: V E, S., Shin, C., & Cho, Y. (2021), Steel Industry Energy Consumption, UCI, DOI10.24432/C52G8C, CC BY4.0.
+Autor: [GzoC](https://github.com/GzoC). Código MIT. Fuente: V E, S., Shin, C., & Cho, Y. (2021), Steel Industry Energy Consumption, UCI, DOI 10.24432/C52G8C, CC BY 4.0.

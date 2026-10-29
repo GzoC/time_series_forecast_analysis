@@ -164,7 +164,7 @@ def run(data_path, output):
         )
     lines += [
         "",
-        f"Cobertura observada de bandas nominales90%: {report['interval']['test_coverage']:.1%} en28 predicciones reservadas. Radio {radius:.2f}kWh. No garantiza cobertura futura ni semanal simultánea.",
+        f"Cobertura observada de bandas nominales 90%: {report['interval']['test_coverage']:.1%} en 28 predicciones reservadas. Radio {radius:.2f} kWh. No garantiza cobertura futura ni semanal simultánea.",
         "",
         "Los cortes, métricas por horizonte, versiones y advertencias están en metrics.json. No se corrigen picos ni se interpola el test. Una planta/un año no demuestra transferencia ni ahorro económico.",
     ]
