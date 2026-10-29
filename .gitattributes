@@ -1,1 +1,1 @@
-data/raw/Steel_industry_data.csv -text
+data/raw/Steel_industry_data.csv -text whitespace=cr-at-eol
