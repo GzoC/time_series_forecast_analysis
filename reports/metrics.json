@@ -1,0 +1,249 @@
+{
+  "dataset": {
+    "doi": "10.24432/C52G8C",
+    "sha256": "9b1cee6f9cb9cd9df2b95814ca90a9a2ff15b7f5f1fba0fae3c643e82072eacc",
+    "rows": 35040,
+    "days": 365,
+    "first": "2018-01-01",
+    "last": "2018-12-31"
+  },
+  "environment": {
+    "python": "3.12.13",
+    "numpy": "2.4.6",
+    "pandas": "2.3.3",
+    "statsmodels": "0.14.6",
+    "prophet": "1.5.0"
+  },
+  "origins": {
+    "validation": [
+      196,
+      210,
+      224,
+      238
+    ],
+    "calibration": [
+      252,
+      266,
+      280,
+      294
+    ],
+    "test": [
+      308,
+      322,
+      336,
+      350
+    ]
+  },
+  "horizon_days": 7,
+  "selected": "weekday_mean",
+  "selection": "Lowest validation MAE, four fixed expanding-window folds; no test selection",
+  "validation": {
+    "prophet": {
+      "mae_kwh": 778.2463753154394,
+      "rmse_kwh": 1072.9114831698466,
+      "wape_percent": 37.450067505014566
+    },
+    "sarima": {
+      "mae_kwh": 906.2922121363418,
+      "rmse_kwh": 1271.0904554653498,
+      "wape_percent": 43.61177334108124
+    },
+    "seasonal_naive": {
+      "mae_kwh": 917.138214285714,
+      "rmse_kwh": 1240.3172096815165,
+      "wape_percent": 44.13369483732834
+    },
+    "weekday_mean": {
+      "mae_kwh": 766.8714285714287,
+      "rmse_kwh": 1049.661972951048,
+      "wape_percent": 36.9026926158524
+    }
+  },
+  "test": {
+    "prophet": {
+      "mae_kwh": 497.1713461236123,
+      "rmse_kwh": 622.5329325168558,
+      "wape_percent": 21.53051155151103
+    },
+    "sarima": {
+      "mae_kwh": 883.4697933237128,
+      "rmse_kwh": 1117.70585574399,
+      "wape_percent": 38.25955928248108
+    },
+    "seasonal_naive": {
+      "mae_kwh": 860.4814285714284,
+      "rmse_kwh": 1173.640507362211,
+      "wape_percent": 37.26402473144854
+    },
+    "weekday_mean": {
+      "mae_kwh": 602.0374107142858,
+      "rmse_kwh": 749.8822029528085,
+      "wape_percent": 26.071843292841177
+    }
+  },
+  "by_horizon": {
+    "1": {
+      "prophet": {
+        "mae_kwh": 487.0491766548952,
+        "rmse_kwh": 540.0158858539401,
+        "wape_percent": 17.57266217550305
+      },
+      "sarima": {
+        "mae_kwh": 458.4392050134802,
+        "rmse_kwh": 502.49566835000206,
+        "wape_percent": 16.540418635008287
+      },
+      "seasonal_naive": {
+        "mae_kwh": 649.195,
+        "rmse_kwh": 699.7634855077822,
+        "wape_percent": 23.422859472584726
+      },
+      "weekday_mean": {
+        "mae_kwh": 629.7953125000001,
+        "rmse_kwh": 705.5004638450262,
+        "wape_percent": 22.722921620129675
+      }
+    },
+    "2": {
+      "prophet": {
+        "mae_kwh": 388.6876913741503,
+        "rmse_kwh": 530.6020755446862,
+        "wape_percent": 14.375116295272475
+      },
+      "sarima": {
+        "mae_kwh": 652.2866675005174,
+        "rmse_kwh": 926.5091097254826,
+        "wape_percent": 24.12398671546733
+      },
+      "seasonal_naive": {
+        "mae_kwh": 1101.0125000000003,
+        "rmse_kwh": 1490.9675740186306,
+        "wape_percent": 40.719536741937794
+      },
+      "weekday_mean": {
+        "mae_kwh": 401.58343750000006,
+        "rmse_kwh": 496.89857248919225,
+        "wape_percent": 14.85204894425352
+      }
+    },
+    "3": {
+      "prophet": {
+        "mae_kwh": 613.6737753958573,
+        "rmse_kwh": 814.4199206923179,
+        "wape_percent": 19.06301673858002
+      },
+      "sarima": {
+        "mae_kwh": 834.9335120077527,
+        "rmse_kwh": 889.8023151603848,
+        "wape_percent": 25.93617676547799
+      },
+      "seasonal_naive": {
+        "mae_kwh": 973.5649999999997,
+        "rmse_kwh": 1083.53217972518,
+        "wape_percent": 30.242592457407685
+      },
+      "weekday_mean": {
+        "mae_kwh": 692.9090624999999,
+        "rmse_kwh": 925.2172713622205,
+        "wape_percent": 21.524362921049885
+      }
+    },
+    "4": {
+      "prophet": {
+        "mae_kwh": 598.2930038812361,
+        "rmse_kwh": 699.397069160755,
+        "wape_percent": 18.854593048370372
+      },
+      "sarima": {
+        "mae_kwh": 531.8443714711549,
+        "rmse_kwh": 609.8595776428906,
+        "wape_percent": 16.760532254436143
+      },
+      "seasonal_naive": {
+        "mae_kwh": 509.9699999999999,
+        "rmse_kwh": 550.407097383382,
+        "wape_percent": 16.071183775343147
+      },
+      "weekday_mean": {
+        "mae_kwh": 636.3059374999999,
+        "rmse_kwh": 737.4969196204206,
+        "wape_percent": 20.05253183305785
+      }
+    },
+    "5": {
+      "prophet": {
+        "mae_kwh": 532.9506777780424,
+        "rmse_kwh": 566.0032525778402,
+        "wape_percent": 18.104789135375288
+      },
+      "sarima": {
+        "mae_kwh": 579.8517050050439,
+        "rmse_kwh": 704.3754614296581,
+        "wape_percent": 19.698057037233543
+      },
+      "seasonal_naive": {
+        "mae_kwh": 583.6225,
+        "rmse_kwh": 938.8754312873459,
+        "wape_percent": 19.826154159730947
+      },
+      "weekday_mean": {
+        "mae_kwh": 652.6815624999998,
+        "rmse_kwh": 675.7564864604402,
+        "wape_percent": 22.17214942079695
+      }
+    },
+    "6": {
+      "prophet": {
+        "mae_kwh": 720.9229776071999,
+        "rmse_kwh": 800.872723210123,
+        "wape_percent": 70.19219504096117
+      },
+      "sarima": {
+        "mae_kwh": 1220.0838759972942,
+        "rmse_kwh": 1515.1317643148843,
+        "wape_percent": 118.79267002222772
+      },
+      "seasonal_naive": {
+        "mae_kwh": 977.1600000000001,
+        "rmse_kwh": 1569.4494587274864,
+        "wape_percent": 95.14054543507261
+      },
+      "weekday_mean": {
+        "mae_kwh": 801.5115624999999,
+        "rmse_kwh": 1078.8563869207103,
+        "wape_percent": 78.03864999464496
+      }
+    },
+    "7": {
+      "prophet": {
+        "mae_kwh": 138.62212017390442,
+        "rmse_kwh": 159.63137739016437,
+        "wape_percent": 42.60543860275982
+      },
+      "sarima": {
+        "mae_kwh": 1906.8492162707466,
+        "rmse_kwh": 1917.9410090584884,
+        "wape_percent": 586.0691432696597
+      },
+      "seasonal_naive": {
+        "mae_kwh": 1228.845,
+        "rmse_kwh": 1451.7997123914854,
+        "wape_percent": 377.6848899304622
+      },
+      "weekday_mean": {
+        "mae_kwh": 399.475,
+        "rmse_kwh": 413.66350339451634,
+        "wape_percent": 122.77843943294017
+      }
+    }
+  },
+  "interval": {
+    "nominal_coverage": 0.9,
+    "calibration_rows": 28,
+    "radius_kwh": 2877.9525,
+    "test_coverage": 1.0,
+    "mean_width_kwh": 5267.850758928571,
+    "limitation": "Pooled absolute errors from earlier calibration folds; temporal dependence means no coverage guarantee. Marginal daily bands, not simultaneous weekly coverage."
+  },
+  "warnings": []
+}

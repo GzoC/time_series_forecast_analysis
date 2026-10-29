@@ -1,117 +1,54 @@
-# Análisis y Pronóstico de Series Temporales
+# Pronóstico de energía industrial
 
-Este proyecto realiza un análisis y pronóstico de series temporales utilizando modelos predictivos avanzados (ARIMA y Prophet). El objetivo principal es realizar predicciones precisas sobre datos históricos como ventas, demanda, visitas, etc.
+**Planificar el consumo diario de una acería con siete días de anticipación y medir cuánto confiar en esa previsión.**
 
-## 📂 Estructura del Proyecto
+Python · pandas · SARIMA · Prophet · Streamlit · evaluación temporal
 
-```
-analisis-pronostico-series-temporales/
-├── data/
-│   ├── raw/
-│   │   └── datos_ventas.csv
-│   └── processed/
-│       ├── datos_ventas_limpios.csv
-│       └── arima_predictions.csv
-├── notebooks/
-│   └── exploratory_analysis.ipynb
-├── src/
-│   ├── ingestion/
-│   │   └── load_data.py
-│   ├── preprocessing/
-│   │   └── clean_data.py
-│   ├── modeling/
-│   │   ├── arima_model.py
-│   │   ├── prophet_model.py
-│   │   └── model_evaluation.py
-│   ├── visualization/
-│   │   └── dashboard.py
-│   └── utils/
-│       └── utils.py
-├── tests/
-│   ├── test_ingestion.py
-│   ├── test_preprocessing.py
-│   └── test_modeling.py
-├── Dockerfile
-├── docker-compose.yml
-├── requirements.txt
-├── setup.py
-├── .gitignore
-├── README.md
-└── .github/
-    └── workflows/
-        └── ci.yml
-```
+El estudio utiliza consumo real publicado por UCI: 35.040 mediciones de una acería en Corea del Sur, agregadas por fecha a 365 días de2018. La demo es una reconstrucción histórica, no un pronóstico actual conectado a una planta.
 
-## 🚀 Instalación
+## Ejecutar
 
-1. **Clonar el repositorio:**
+Con Python3.11–3.14 y uv:
 
 ```bash
-git clone https://github.com/tuusuario/analisis-pronostico-series-temporales.git
-cd analisis-pronostico-series-temporales
+git clone https://github.com/GzoC/time_series_forecast_analysis.git
+cd time_series_forecast_analysis
+uv sync --locked --extra dev
+uv run --no-sync energy-forecast run
+uv run --no-sync energy-forecast dashboard
 ```
 
-2. **Crear y activar entorno virtual:**
+Abre http://127.0.0.1:8504. La primera orden crea los informes y directorios necesarios. También funciona `uv run python run_pipeline.py`. La demo muestra la semana posterior al último día del dataset y permite contrastar un presupuesto diario de energía con el límite superior del pronóstico. No convierte kWh en potencia ni calcula ahorros sin tarifas y restricciones operativas.
+
+## Qué demuestra
+
+- Comparación de referencia semanal, media del mismo día de las últimas ocho semanas, SARIMA y Prophet.
+- Cuatro cortes de validación para elegir modelo, cuatro posteriores para calibrar bandas y cuatro de prueba. En cada origen solo se usan observaciones ya disponibles.
+- MAE/RMSE en kWh y WAPE; fechas alineadas explícitamente, ceros admitidos y métricas por día del horizonte.
+- Bandas basadas en errores anteriores, con cobertura y anchura medidas. No se afirma cobertura garantizada.
+- Datos originales con hash y licencia, reportes generados por código, dependencias bloqueadas, CLI instalable y CI.
+
+[Resultados generados](reports/RESULTS.md) · [Metodología y límites](docs/METHODOLOGY.md) · [Procedencia y licencia](data/README.md).
+
+El modelo elegido en validación puede ser superado por otro en prueba: no se cambia la selección después de observarla. El resultado importa más que la complejidad del algoritmo. Las bandas pueden ser amplias; deben evaluarse junto con el error puntual.
+
+## Validación y reproducción
 
 ```bash
-python -m venv venv
-source venv/bin/activate  # Linux/Mac
-venv\Scripts\activate     # Windows
+uv run --no-sync pytest
+uv run --no-sync ruff check src tests
+uv run --no-sync ruff format --check src tests
+uv build
 ```
 
-3. **Instalar dependencias:**
+La CI ejecuta pruebas, evaluación completa y el wheel fuera del checkout en Python3.11/3.13. Su tarea de contenedor construye la imagen, genera informes y comprueba salud HTTP. Esto no reemplaza la revisión visual de la aplicación.
 
 ```bash
-pip install -r requirements.txt
+docker compose up --build
 ```
 
-## 🧑‍💻 Ejecución del Pipeline
+[Estado de implementación y evidencia pendiente](docs/IMPLEMENTATION_STATUS.md). Historial original conservado en Git; el experimento de ventas de origen no documentado permanece en el commit266ada82b7fd25bce524667ca801a2d44290910c.
 
-### 1. **Ingestión de Datos**
+English: Reproducible daily industrial energy forecasting with chronological model selection, seasonal baselines, calibrated error bands and an explicit historical planning scenario.
 
-```bash
-python src/ingestion/load_data.py
-```
-
-### 2. **Limpieza y Transformación**
-
-```bash
-python src/preprocessing/clean_data.py
-```
-
-### 3. **Modelado Predictivo (ARIMA)**
-
-```bash
-python src/modeling/arima_model.py
-```
-
-## 📦 Resultados
-
-Los resultados se guardan automáticamente en:
-
-- Datos limpios: `data/processed/datos_ventas_limpios.csv`
-- Predicciones ARIMA: `data/processed/arima_predictions.csv`
-
-## 📌 Próximos Pasos
-
-- [ ] Desarrollar el modelo Prophet
-- [ ] Evaluación comparativa de modelos
-- [ ] Automatización del pipeline
-- [ ] Dashboard interactivo (Streamlit)
-- [ ] Contenerización (Docker)
-- [ ] Testing (Pytest)
-- [ ] CI/CD (GitHub Actions)
-
-## 🛠️ Herramientas y Tecnologías
-
-- Python
-- Pandas, NumPy
-- Statsmodels (ARIMA)
-- Prophet (pendiente)
-- Docker, Docker Compose (pendiente)
-- Pytest, GitHub Actions (pendiente)
-
-## 📞 Contacto
-
-- **Email:** cisternasalinasg@gmail.com
-- **GitHub:** [GzoC](https://github.com/GzoC)
+Autor: [GzoC](https://github.com/GzoC). Código MIT. Fuente: V E, S., Shin, C., & Cho, Y. (2021), Steel Industry Energy Consumption, UCI, DOI10.24432/C52G8C, CC BY4.0.
