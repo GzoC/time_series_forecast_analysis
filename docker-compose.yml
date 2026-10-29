@@ -1,9 +1,5 @@
-version: '3.8'
-
 services:
-  forecast_dashboard:
+  energy:
     build: .
     ports:
-      - "8501:8501"
-    volumes:
-      - .:/app
+      - "127.0.0.1:8504:8504"

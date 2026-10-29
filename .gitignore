@@ -1,4 +1,10 @@
-﻿.venv_forecasting/
+.venv/
 __pycache__/
-data/processed/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+build/
+dist/
+var/
 .env
