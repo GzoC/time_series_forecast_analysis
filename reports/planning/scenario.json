@@ -1,0 +1,79 @@
+{
+  "interval_hours": 1.0,
+  "capacity_kw": 85.0,
+  "base_kw": [
+    42.0,
+    40.0,
+    44.0,
+    48.0,
+    50.0,
+    56.0,
+    60.0,
+    58.0,
+    52.0,
+    48.0,
+    44.0,
+    40.0
+  ],
+  "tariff_usd_per_kwh": [
+    0.09,
+    0.08,
+    0.08,
+    0.14,
+    0.21,
+    0.28,
+    0.3,
+    0.24,
+    0.16,
+    0.12,
+    0.1,
+    0.09
+  ],
+  "tasks": [
+    {
+      "task_id": "washing",
+      "power_kw": 18.0,
+      "duration_intervals": 2,
+      "release": 0,
+      "deadline": 8,
+      "required_kwh": 36.0,
+      "fixed_start": 1
+    },
+    {
+      "task_id": "heater",
+      "power_kw": 24.0,
+      "duration_intervals": 3,
+      "release": 2,
+      "deadline": 12,
+      "required_kwh": 72.0,
+      "fixed_start": 4
+    },
+    {
+      "task_id": "air_preparation",
+      "power_kw": 12.0,
+      "duration_intervals": 2,
+      "release": 0,
+      "deadline": 9,
+      "required_kwh": 24.0,
+      "fixed_start": 2
+    },
+    {
+      "task_id": "finishing",
+      "power_kw": 16.0,
+      "duration_intervals": 2,
+      "release": 4,
+      "deadline": 12,
+      "required_kwh": 32.0,
+      "fixed_start": 7
+    },
+    {
+      "task_id": "dryer",
+      "power_kw": 14.0,
+      "duration_intervals": 3,
+      "release": 6,
+      "deadline": 12,
+      "required_kwh": 42.0,
+      "fixed_start": 9
+    }
+  ]
+}

@@ -1,0 +1,317 @@
+{
+  "domain": "Separate synthetic scheduling exercise; not the UCI plant or an observed hourly profile",
+  "assumptions": {
+    "power_unit": "kW",
+    "energy_unit": "kWh",
+    "currency": "USD",
+    "tariff_unit": "USD/kWh",
+    "base": "Synthetic day-ahead estimate available before dispatch",
+    "tariff": "Assumed announced before dispatch; no tax or demand charge",
+    "tasks": "All mandatory, fixed power, contiguous nonpreemptive duration, one start each",
+    "uncertainty": "Sensitivity scenarios are assumptions, not observed future consumption"
+  },
+  "scenario": {
+    "interval_hours": 1.0,
+    "capacity_kw": 85.0,
+    "base_kw": [
+      42.0,
+      40.0,
+      44.0,
+      48.0,
+      50.0,
+      56.0,
+      60.0,
+      58.0,
+      52.0,
+      48.0,
+      44.0,
+      40.0
+    ],
+    "tariff_usd_per_kwh": [
+      0.09,
+      0.08,
+      0.08,
+      0.14,
+      0.21,
+      0.28,
+      0.3,
+      0.24,
+      0.16,
+      0.12,
+      0.1,
+      0.09
+    ],
+    "tasks": [
+      {
+        "task_id": "washing",
+        "power_kw": 18.0,
+        "duration_intervals": 2,
+        "release": 0,
+        "deadline": 8,
+        "required_kwh": 36.0,
+        "fixed_start": 1
+      },
+      {
+        "task_id": "heater",
+        "power_kw": 24.0,
+        "duration_intervals": 3,
+        "release": 2,
+        "deadline": 12,
+        "required_kwh": 72.0,
+        "fixed_start": 4
+      },
+      {
+        "task_id": "air_preparation",
+        "power_kw": 12.0,
+        "duration_intervals": 2,
+        "release": 0,
+        "deadline": 9,
+        "required_kwh": 24.0,
+        "fixed_start": 2
+      },
+      {
+        "task_id": "finishing",
+        "power_kw": 16.0,
+        "duration_intervals": 2,
+        "release": 4,
+        "deadline": 12,
+        "required_kwh": 32.0,
+        "fixed_start": 7
+      },
+      {
+        "task_id": "dryer",
+        "power_kw": 14.0,
+        "duration_intervals": 3,
+        "release": 6,
+        "deadline": 12,
+        "required_kwh": 42.0,
+        "fixed_start": 9
+      }
+    ]
+  },
+  "plans": {
+    "fixed": {
+      "method": "fixed",
+      "status": "feasible",
+      "feasible": true,
+      "starts": {
+        "washing": 1,
+        "heater": 4,
+        "air_preparation": 2,
+        "finishing": 7,
+        "dryer": 9
+      },
+      "errors": [],
+      "delivered_kwh": {
+        "washing": 36.0,
+        "heater": 72.0,
+        "air_preparation": 24.0,
+        "finishing": 32.0,
+        "dryer": 42.0
+      },
+      "flexible_energy_kwh": 206.0,
+      "total_energy_kwh": 788.0,
+      "base_cost_usd": 97.4,
+      "flexible_cost_usd": 35.22,
+      "total_cost_usd": 132.62,
+      "peak_kw": 84.0,
+      "flexible_kw": [
+        0.0,
+        18.0,
+        30.0,
+        12.0,
+        24.0,
+        24.0,
+        24.0,
+        16.0,
+        16.0,
+        14.0,
+        14.0,
+        14.0
+      ],
+      "total_kw": [
+        42.0,
+        58.0,
+        74.0,
+        60.0,
+        74.0,
+        80.0,
+        84.0,
+        74.0,
+        68.0,
+        62.0,
+        58.0,
+        54.0
+      ]
+    },
+    "greedy": {
+      "method": "greedy",
+      "status": "feasible",
+      "feasible": true,
+      "starts": {
+        "washing": 1,
+        "heater": 9,
+        "air_preparation": 1,
+        "finishing": 10,
+        "dryer": 6
+      },
+      "errors": [],
+      "delivered_kwh": {
+        "washing": 36.0,
+        "heater": 72.0,
+        "air_preparation": 24.0,
+        "finishing": 32.0,
+        "dryer": 42.0
+      },
+      "flexible_energy_kwh": 206.0,
+      "total_energy_kwh": 788.0,
+      "base_cost_usd": 97.4,
+      "flexible_cost_usd": 25.08,
+      "total_cost_usd": 122.48,
+      "peak_kw": 84.0,
+      "flexible_kw": [
+        0.0,
+        30.0,
+        30.0,
+        0.0,
+        0.0,
+        0.0,
+        14.0,
+        14.0,
+        14.0,
+        24.0,
+        40.0,
+        40.0
+      ],
+      "total_kw": [
+        42.0,
+        70.0,
+        74.0,
+        48.0,
+        50.0,
+        56.0,
+        74.0,
+        72.0,
+        66.0,
+        72.0,
+        84.0,
+        80.0
+      ]
+    },
+    "optimized": {
+      "method": "branch_and_bound",
+      "status": "optimal",
+      "feasible": true,
+      "starts": {
+        "dryer": 9,
+        "finishing": 10,
+        "washing": 0,
+        "air_preparation": 1,
+        "heater": 2
+      },
+      "errors": [],
+      "delivered_kwh": {
+        "washing": 36.0,
+        "heater": 72.0,
+        "air_preparation": 24.0,
+        "finishing": 32.0,
+        "dryer": 42.0
+      },
+      "flexible_energy_kwh": 206.0,
+      "total_energy_kwh": 788.0,
+      "base_cost_usd": 97.4,
+      "flexible_cost_usd": 22.68,
+      "total_cost_usd": 120.08000000000001,
+      "peak_kw": 80.0,
+      "flexible_kw": [
+        18.0,
+        30.0,
+        36.0,
+        24.0,
+        24.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        14.0,
+        30.0,
+        30.0
+      ],
+      "total_kw": [
+        60.0,
+        70.0,
+        80.0,
+        72.0,
+        74.0,
+        56.0,
+        60.0,
+        58.0,
+        52.0,
+        62.0,
+        74.0,
+        70.0
+      ],
+      "optimal": true,
+      "proven_infeasible": false,
+      "cost_tolerance_usd": 1e-09,
+      "nodes": 391,
+      "max_nodes": 1000000,
+      "proof": "Complete branch-and-bound with admissible lower bounds"
+    }
+  },
+  "sensitivity": [
+    {
+      "assumption": "base_power_multiplier",
+      "factor": 0.9,
+      "nominal_schedule_feasible": true,
+      "nominal_schedule_errors": [],
+      "reoptimized_status": "optimal",
+      "reoptimized_cost_usd": 110.22
+    },
+    {
+      "assumption": "base_power_multiplier",
+      "factor": 1.0,
+      "nominal_schedule_feasible": true,
+      "nominal_schedule_errors": [],
+      "reoptimized_status": "optimal",
+      "reoptimized_cost_usd": 120.08000000000001
+    },
+    {
+      "assumption": "base_power_multiplier",
+      "factor": 1.1,
+      "nominal_schedule_feasible": true,
+      "nominal_schedule_errors": [],
+      "reoptimized_status": "optimal",
+      "reoptimized_cost_usd": 129.82000000000002
+    },
+    {
+      "assumption": "base_power_multiplier",
+      "factor": 1.2,
+      "nominal_schedule_feasible": false,
+      "nominal_schedule_errors": [
+        "Capacity exceeded at intervals [2]"
+      ],
+      "reoptimized_status": "optimal",
+      "reoptimized_cost_usd": 139.68
+    },
+    {
+      "assumption": "peak_tariff_multiplier_intervals_4_to_7",
+      "factor": 0.75,
+      "reoptimized_status": "optimal",
+      "reoptimized_cost_usd": 104.295
+    },
+    {
+      "assumption": "peak_tariff_multiplier_intervals_4_to_7",
+      "factor": 1.25,
+      "reoptimized_status": "optimal",
+      "reoptimized_cost_usd": 135.865
+    },
+    {
+      "assumption": "peak_tariff_multiplier_intervals_4_to_7",
+      "factor": 1.5,
+      "reoptimized_status": "optimal",
+      "reoptimized_cost_usd": 151.65
+    }
+  ],
+  "simulated_cost_reduction_usd": 12.539999999999992
+}

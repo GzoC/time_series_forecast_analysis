@@ -18,4 +18,11 @@ No hay limpieza aprendida ni escalador: se preservan valores medidos y se rechaz
 
 Bandas: cuantil de errores absolutos agrupados de 28 predicciones de calibración; rango ceil((n+1)*0,9), limitado a n. Radio fijo por día, límite inferior truncado en cero. Es una adaptación práctica basada en residuos pasados; la dependencia temporal impide atribuir garantía conformal de 90%. Se reportan cobertura y ancho empíricos. Son bandas marginales diarias, no una probabilidad conjunta semanal. Cuatro observaciones por horizonte dan evidencia limitada.
 
-La demo compara el límite superior diario con un presupuesto ingresado para señalar días a revisar. No optimiza producción, calcula tarifas ni controla equipos. Para uso operativo harían falta más años/plantas, calendario de producción disponible antes del corte, tratamiento acordado de indisponibilidad de sensores, tarifas y validación prospectiva. Se requiere revisar la anchura de las bandas y los fallos, no solo cobertura.
+La vista de pronóstico compara el límite superior diario con un presupuesto ingresado para señalar días a revisar. Esa vista no optimiza producción ni calcula tarifas. La extensión sintética independiente se describe en PLANNING.md; ninguna vista controla equipos. Para uso operativo harían falta más años/plantas, calendario de producción disponible antes del corte, tratamiento acordado de indisponibilidad de sensores, tarifas y validación prospectiva. Se requiere revisar la anchura de las bandas y los fallos, no solo cobertura.
+
+
+## Reejecución Linux · 12 noviembre 2026
+
+La evaluación se volvió a ejecutar con el lock conservado, en Python 3.12.14/Linux. Se mantuvieron algoritmos, orígenes, objetivos observados y selección en validación. Weekday_mean y seasonal_naive conservan sus métricas. Prophet/SARIMA tienen pequeñas diferencias numéricas frente al informe Windows anterior; se guardan resultados realmente generados, no se ajusta el conjunto de prueba ni se cambia de modelo para aprovechar esas diferencias. reports/metrics.json registra las versiones, y el historial Git conserva los resultados previos.
+
+La planificación usa únicamente entradas sintéticas declaradas antes de decidir. No importa datos ni resultados futuros del estudio histórico. No se redistribuye energía diaria para afirmar una curva horaria observada.

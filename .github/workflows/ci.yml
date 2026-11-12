@@ -26,6 +26,7 @@ jobs:
       - run: uv run --no-sync ruff format --check src tests
       - run: uv run --no-sync pytest
       - run: uv run --no-sync energy-forecast run
+      - run: uv run --no-sync energy-forecast plan
       - run: uv build
       - name: Wheel outside checkout
         run: |
