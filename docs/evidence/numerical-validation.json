@@ -1,0 +1,15 @@
+{
+  "download_rows": 12,
+  "download_cost_usd": 120.08,
+  "download_matches_nominal_optimizer": true,
+  "forecast_comparison_to_base": {
+    "validation": {
+      "rows": 112,
+      "same_targets_dates_models_horizons": true
+    },
+    "test": {
+      "rows": 112,
+      "same_targets_dates_models_horizons": true
+    }
+  }
+}

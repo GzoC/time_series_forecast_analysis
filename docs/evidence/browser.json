@@ -1,0 +1,15 @@
+{
+  "time": "2026-11-12T13:41:43.692Z",
+  "browser": "156.0.8078.79",
+  "checks": [
+    "nominal optimal dispatch",
+    "Gantt and power constraints",
+    "CSV downloaded",
+    "capacity infeasible at 45 kW",
+    "base sensitivity 1.2",
+    "mobile without document overflow",
+    "existing forecast evaluation available",
+    "planning works without forecast reports"
+  ],
+  "pageErrors": []
+}

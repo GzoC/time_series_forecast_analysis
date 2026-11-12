@@ -37,8 +37,14 @@ def chart(frame, with_actual=True):
 
 def render():
     st.set_page_config(page_title="Energía industrial · Pronóstico", page_icon="⚡", layout="wide")
-    st.caption("PLANIFICACIÓN INDUSTRIAL · SERIE DIARIA · HORIZONTE 7 DÍAS")
+    st.caption("ENERGÍA INDUSTRIAL · PRONÓSTICO DIARIO Y DESPACHO SINTÉTICO")
     st.title("Anticipar consumo, medir el margen")
+    study = st.radio("Estudio", ["Pronóstico diario (UCI)", "Despacho sintético"], horizontal=True)
+    if study == "Despacho sintético":
+        from energy_forecast.planning_dashboard import render_planning
+
+        render_planning()
+        return
     folder = Path(os.environ.get("FORECAST_REPORTS", "reports"))
     try:
         report = json.loads((folder / "metrics.json").read_text(encoding="utf-8"))
