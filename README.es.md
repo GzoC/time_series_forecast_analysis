@@ -55,7 +55,7 @@ docker compose up --build
 
 [English version](README.md)
 
-Autor: [GzoC](https://github.com/GzoC). Código MIT. Fuente: V E, S., Shin, C., & Cho, Y. (2021), Steel Industry Energy Consumption, UCI, DOI 10.24432/C52G8C, CC BY 4.0.
+Autor: [Gonzalo Cisterna Salinas (GzoC)](https://github.com/GzoC). Código MIT. Fuente: V E, S., Shin, C., & Cho, Y. (2021), Steel Industry Energy Consumption, UCI, DOI 10.24432/C52G8C, CC BY 4.0.
 
 ## Despacho sintético independiente
 
