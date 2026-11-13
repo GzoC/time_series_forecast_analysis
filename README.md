@@ -2,6 +2,8 @@
 
 English · [Español](README.es.md)
 
+Author: [Gonzalo Cisterna Salinas (GzoC)](https://github.com/GzoC).
+
 For energy and OT/IT engineers: a chronological daily consumption study plus a separate, explicitly synthetic flexible-load scheduling exercise. The historical study uses UCI steel-industry data from 2018. It is not a live plant forecast; the scheduling scenario is not an observed hourly profile of that plant.
 
 ![Verified synthetic scheduling view](docs/evidence/planning-optimal.png)
